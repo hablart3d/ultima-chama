@@ -1,6 +1,6 @@
 // Última Chama — service worker (funciona offline depois da primeira visita)
 // Estratégia "rede primeiro": sempre tenta a versão mais nova e usa o cache só sem internet.
-const CACHE = 'ultima-chama-0.4.0';
+const CACHE = 'ultima-chama-0.5.0';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {

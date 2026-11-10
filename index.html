@@ -239,7 +239,7 @@ const CONFIG = {
   linkDiscord: '',         // Discord/comunidade. Vazio = botão some
   supabaseUrl: 'https://pdooebplseetvrepllrl.supabase.co',
   supabaseKey: 'sb_publishable_uDYzMp-4okDVXq7dIvE3rw_VzmPpKhX', // chave PÚBLICA. NUNCA a secret / service_role
-  version: '0.4.0'
+  version: '0.5.0'
 };
 const FULL_SECONDS = 1200;                          // versão completa: 20 minutos
 const DAILY_SECONDS = 600;                          // desafio diário: 10 minutos
@@ -253,10 +253,10 @@ const T = {
     title:'Última Chama', tag:'A escuridão devora tudo. Mantenha sua chama acesa.',
     play:'Jogar', shop:'Altar das Cinzas', back:'Voltar',
     how:'Mover: WASD ou setas · Celular: arraste o dedo · Ataques automáticos · P pausa · M som',
-    how2:'Duas coisas te mantêm vivo: a CHAMA (sua luz, que se apaga com o tempo) e a VIDA da vela (que as sombras ferem). Recolha brasas e meios corações de fogo.',
+    how2:'Sua VELA é sua vida e sua luz: ela queima com o tempo e as sombras a ferem. Recolha brasas e meios corações de fogo para mantê-la acesa. A cada minuto surge uma sombra nova.',
     paused:'Pausado', resume:'Continuar', menu:'Menu', again:'Jogar de novo', share:'Compartilhar resultado',
     discord:'Entrar na comunidade',
-    over:'Sua chama se apagou', overHp:'Sua vela se partiu',
+    over:'Sua vela se apagou', newShadow:n=>`NOVA SOMBRA: ${n.toUpperCase()}`,
     winDemo:'Você venceu a demo!', winFull:'Você sobreviveu!', demoMapEnd:'Fim da demo neste mapa',
     winText:'Sua chama resistiu às sombras. Na versão completa a luta vai até os 20 minutos, com 5 mapas, 3 chamas e o modo Infinito.',
     demoMapEndText:'Na versão completa você joga os 20 minutos e enfrenta todos os Devoradores.',
@@ -264,9 +264,9 @@ const T = {
     loseText:'As cinzas que você juntou ficam guardadas. Gaste no Altar e volte mais forte.',
     time:'Tempo', kills:'Sombras', level:'Nível', ash:'Cinzas ganhas', best:'Recorde',
     choose:'Escolha um poder', newp:'NOVO', lvlShort:'NÍVEL', reroll:'Trocar opções',
-    sound:'Som', on:'ligado', off:'desligado', flame:'CHAMA', life:'VIDA',
+    sound:'Som', on:'ligado', off:'desligado', flame:'VELA',
     swarm:'A horda se aproxima!', go:'Sobreviva.', eclipse:'ECLIPSE! A luz enfraquece…',
-    bossDown:'O Devorador caiu!', heal:'Sopro', healD:'+40 de chama e +25% de vida agora', maxed:'MÁX', copied:'Texto copiado!', ashHave:'Você tem', lv:'NV',
+    bossDown:'O Devorador caiu!', heal:'Sopro', healD:'+40 de vela agora', maxed:'MÁX', copied:'Texto copiado!', ashHave:'Você tem', lv:'NV',
     shareText:(tm,k)=>`Sobrevivi ${tm} e apaguei ${k} sombras em Última Chama. Você aguenta mais?`,
     score:'Pontos', ranking:'Ranking', yourNick:'Escolha seu nickname para entrar no ranking:', nickPh:'seu nickname', save:'Salvar', skip:'Agora não',
     taken:'Esse nickname já tem dono. Tente outro.', invalid:'Use de 3 a 16 letras, números, _ . ou -', offensive:'Esse nickname não é permitido.',
@@ -280,7 +280,7 @@ const T = {
     prepare:'Prepare-se', flameSel:'Sua chama', mapSel:'Mapa', modeSel:'Modo',
     locked:'Versão completa', demoMins:m=>`Demo: ${m} min`,
     fullTitle:'Versão completa', fullTag:'A demo é só o começo.',
-    feats:['⏱️ Partidas completas de 20 minutos, com os 7 Devoradores','🗺️ 5 mapas, cada um com seu próprio ranking','🔥 3 chamas jogáveis: Vela, Tocha e Fogueira','♾️ Modo Infinito, sem limite de tempo','🚀 Acesso antecipado: todas as atualizações até a versão 1.0'],
+    feats:['⏱️ Partidas completas de 20 minutos: 7 Devoradores e 19 tipos de sombra','🗺️ 5 mapas, cada um com seu próprio ranking','🔥 3 chamas jogáveis: Vela, Tocha e Fogueira','♾️ Modo Infinito, sem limite de tempo','🚀 Acesso antecipado: todas as atualizações até a versão 1.0'],
     priceLbl:p=>`${p} · preço de acesso antecipado`, buy:'Comprar', soon:'Em breve',
     notify:'Avise-me do lançamento', notifyD:'Deixe seu email e avisaremos das novidades da versão completa.',
     emailPh:'seu@email.com', consent:'Aceito receber emails sobre o Última Chama. Posso pedir para sair quando quiser.',
@@ -298,10 +298,10 @@ const T = {
     title:'Last Ember', tag:'The darkness devours everything. Keep your flame alive.',
     play:'Play', shop:'Ash Altar', back:'Back',
     how:'Move: WASD or arrows · Mobile: drag your finger · Auto attacks · P pause · M sound',
-    how2:'Two things keep you alive: your FLAME (your light, which fades over time) and your candle’s LIFE (which shadows wound). Collect embers and half hearts of fire.',
+    how2:'Your CANDLE is your life and your light: it burns down over time and shadows wound it. Collect embers and half hearts of fire to keep it lit. A new shadow appears every minute.',
     paused:'Paused', resume:'Resume', menu:'Menu', again:'Play again', share:'Share result',
     discord:'Join the community',
-    over:'Your flame went out', overHp:'Your candle broke',
+    over:'Your candle went out', newShadow:n=>`NEW SHADOW: ${n.toUpperCase()}`,
     winDemo:'You beat the demo!', winFull:'You survived!', demoMapEnd:'End of the demo on this map',
     winText:'Your flame held back the shadows. In the full version the fight lasts 20 minutes, with 5 maps, 3 flames and Endless mode.',
     demoMapEndText:'In the full version you play all 20 minutes and face every Devourer.',
@@ -309,9 +309,9 @@ const T = {
     loseText:'The ash you gathered is kept. Spend it at the Altar and come back stronger.',
     time:'Time', kills:'Shadows', level:'Level', ash:'Ash earned', best:'Best',
     choose:'Choose a power', newp:'NEW', lvlShort:'LEVEL', reroll:'Reroll',
-    sound:'Sound', on:'on', off:'off', flame:'FLAME', life:'LIFE',
+    sound:'Sound', on:'on', off:'off', flame:'CANDLE',
     swarm:'The horde approaches!', go:'Survive.', eclipse:'ECLIPSE! The light weakens…',
-    bossDown:'The Devourer has fallen!', heal:'Breath', healD:'+40 flame and +25% life now', maxed:'MAX', copied:'Text copied!', ashHave:'You have', lv:'LV',
+    bossDown:'The Devourer has fallen!', heal:'Breath', healD:'+40 candle now', maxed:'MAX', copied:'Text copied!', ashHave:'You have', lv:'LV',
     shareText:(tm,k)=>`I survived ${tm} and snuffed out ${k} shadows in Last Ember. Can you last longer?`,
     score:'Score', ranking:'Leaderboard', yourNick:'Pick a nickname to join the leaderboard:', nickPh:'your nickname', save:'Save', skip:'Not now',
     taken:'That nickname is taken. Try another.', invalid:'Use 3 to 16 letters, numbers, _ . or -', offensive:'That nickname is not allowed.',
@@ -325,7 +325,7 @@ const T = {
     prepare:'Get ready', flameSel:'Your flame', mapSel:'Map', modeSel:'Mode',
     locked:'Full version', demoMins:m=>`Demo: ${m} min`,
     fullTitle:'Full version', fullTag:'The demo is only the beginning.',
-    feats:['⏱️ Full 20-minute runs with all 7 Devourers','🗺️ 5 maps, each with its own leaderboard','🔥 3 playable flames: Candle, Torch and Bonfire','♾️ Endless mode, no time limit','🚀 Early access: every update up to version 1.0'],
+    feats:['⏱️ Full 20-minute runs: 7 Devourers and 19 shadow types','🗺️ 5 maps, each with its own leaderboard','🔥 3 playable flames: Candle, Torch and Bonfire','♾️ Endless mode, no time limit','🚀 Early access: every update up to version 1.0'],
     priceLbl:p=>`${p} · early access price`, buy:'Buy', soon:'Coming soon',
     notify:'Notify me', notifyD:'Leave your email and we will tell you about full version news.',
     emailPh:'you@email.com', consent:'I agree to receive emails about Last Ember. I can unsubscribe anytime.',
@@ -346,10 +346,10 @@ const t = k => T[LANG][k] ?? k;
 const FLAMES = {
   vela:    {color:['#ff4d00','#ffa630','#fff0bf'],start:['spark'],mods:{},
             pt:['Vela','Equilibrada. Começa com Faíscas.'],en:['Candle','Balanced. Starts with Sparks.']},
-  tocha:   {color:['#e8202a','#ff6a3d','#ffe0c8'],start:['spark','orbit'],mods:{dmg:1.2,maxFlame:-30,speed:1.06,burn:1.15,hp:-20},
+  tocha:   {color:['#e8202a','#ff6a3d','#ffe0c8'],start:['spark','orbit'],mods:{dmg:1.2,maxFlame:-30,speed:1.06,burn:1.15},
             pt:['Tocha','Agressiva: +20% de dano, Faíscas e Brasas Orbitais, mas frágil e queima rápido.'],en:['Torch','Aggressive: +20% damage, Sparks and Orbiting Embers, but fragile and burns fast.']},
-  fogueira:{color:['#ff7b00','#ffc23d','#fff6d6'],start:['nova'],mods:{maxFlame:40,speed:.9,burn:.85,hp:30},
-            pt:['Fogueira','Resistente: +40 de chama e +30 de vida, mas lenta. Começa com Erupção.'],en:['Bonfire','Sturdy: +40 flame and +30 life, but slow. Starts with Eruption.']}
+  fogueira:{color:['#ff7b00','#ffc23d','#fff6d6'],start:['nova'],mods:{maxFlame:60,speed:.9,burn:.85},
+            pt:['Fogueira','Resistente: +60 de vela e queima devagar, mas é lenta. Começa com Erupção.'],en:['Bonfire','Sturdy: +60 candle and burns slowly, but is slow. Starts with Eruption.']}
 };
 const MAPS = {
   floresta:  {icon:'🌲',light:1,hpMul:1,spd:1,bias:{},amb:'mote',
@@ -382,9 +382,8 @@ const UP = {
   orbit:{w:1,max:5,icon:'●',pt:['Brasas Orbitais','Brasas giram ao seu redor'],en:['Orbiting Embers','Embers circle around you']},
   nova: {w:1,max:5,icon:'✺',pt:['Erupção','Solta uma onda de fogo de tempos em tempos'],en:['Eruption','Releases a wave of fire every few seconds']},
   trail:{w:1,max:5,icon:'≈',pt:['Rastro','Deixa fogo no chão por onde passa'],en:['Trail','Leaves fire on the ground where you walk']},
-  vigor:{max:5,icon:'♨',pt:['Vigor','+20 de chama máxima'],en:['Vigor','+20 max flame']},
-  wax:  {max:5,icon:'♥',pt:['Cera Grossa','+20 de vida máxima da vela'],en:['Thick Wax','+20 max candle life']},
-  soot: {max:5,icon:'⛨',pt:['Fuligem','Recebe 8% menos dano'],en:['Soot','Take 8% less damage']},
+  vigor:{max:5,icon:'♥',pt:['Cera Grossa','+20 de vela máxima'],en:['Thick Wax','+20 max candle']},
+  soot: {max:5,icon:'⛨',pt:['Fuligem','A vela recebe 8% menos dano'],en:['Soot','The candle takes 8% less damage']},
   speed:{max:5,icon:'»',pt:['Passos Leves','+8% de velocidade'],en:['Light Steps','+8% speed']},
   lantern:{max:5,icon:'☼',pt:['Lanterna','+12% de alcance da luz (e da mira)'],en:['Lantern','+12% light radius (and aim range)']},
   magnet:{max:5,icon:'⊕',pt:['Atração','+35% de alcance para puxar brasas'],en:['Pull','+35% ember pickup range']},
@@ -404,8 +403,7 @@ function wstat(id,l){
   }
 }
 const META = {
-  flame: {max:5,cost:l=>20+l*20,pt:['Chama Ancestral','+10 de chama máxima'],en:['Ancestral Flame','+10 max flame']},
-  hp:    {max:5,cost:l=>20+l*20,pt:['Vela Reforçada','+10 de vida máxima'],en:['Reinforced Candle','+10 max life']},
+  flame: {max:5,cost:l=>20+l*20,pt:['Chama Ancestral','+10 de vela máxima'],en:['Ancestral Flame','+10 max candle']},
   speed: {max:5,cost:l=>20+l*20,pt:['Passos de Brasa','+4% de velocidade'],en:['Ember Steps','+4% speed']},
   light: {max:5,cost:l=>25+l*25,pt:['Olhar Ardente','+6% de alcance da luz'],en:['Burning Gaze','+6% light radius']},
   xp:    {max:5,cost:l=>25+l*25,pt:['Fome de Brasas','+10% de experiência'],en:['Ember Hunger','+10% experience']},
@@ -421,8 +419,41 @@ const ET = {
   bomber:  {hp:26, spd:40, r:17,dmg:6, xp:3,body:'#2a1236',eye:'#e040ff'},
   splitter:{hp:34, spd:50, r:18,dmg:10,xp:2,body:'#1d2b22',eye:'#7dff6a'},
   leech:   {hp:20, spd:66, r:13,dmg:6, xp:2,body:'#120a18',eye:'#b090ff'},
+  blade:   {hp:40, spd:80, r:12,dmg:14,xp:3,body:'#331626',eye:'#ff7090'},
+  weaver:  {hp:45, spd:50, r:15,dmg:10,xp:3,body:'#26222e',eye:'#e0e0ff'},
+  sniper:  {hp:38, spd:60, r:12,dmg:8, xp:3,body:'#2b1020',eye:'#ff2020'},
+  blinker: {hp:50, spd:55, r:14,dmg:16,xp:4,body:'#14243a',eye:'#80c0ff'},
+  glutton: {hp:70, spd:58, r:16,dmg:14,xp:4,body:'#2e2410',eye:'#ffd040'},
+  carapace:{hp:160,spd:36, r:22,dmg:20,xp:6,body:'#202826',eye:'#a0ffd0'},
+  mortar:  {hp:60, spd:50, r:15,dmg:10,xp:4,body:'#2a1a12',eye:'#ff9040'},
+  vortex:  {hp:90, spd:44, r:18,dmg:14,xp:5,body:'#160c2a',eye:'#d070ff'},
+  healer:  {hp:70, spd:56, r:14,dmg:8, xp:5,body:'#0f2a1c',eye:'#60ff90'},
+  howler:  {hp:110,spd:60, r:18,dmg:18,xp:6,body:'#2a0e0e',eye:'#ffb020'},
+  reaper:  {hp:220,spd:70, r:20,dmg:26,xp:8,body:'#0c0c12',eye:'#ffffff'},
   boss:    {hp:1500,spd:58,r:46,dmg:24,xp:0,body:'#2c0f22',eye:'#ff1040'}
 };
+// uma sombra nova a cada minuto, cada uma com ataque diferente e mais forte que a anterior
+const ROSTER = [
+  {type:'shade',   at:0,   w:1,   pt:['Sombra','Persegue a sua luz.'],en:['Shade','Chases your light.']},
+  {type:'crawler', at:60,  w:.55, pt:['Rastejante','Pequena e muito rápida.'],en:['Crawler','Small and very fast.']},
+  {type:'brute',   at:120, w:.22, pt:['Bruto','Lento, mas aguenta muito.'],en:['Brute','Slow, but very tough.']},
+  {type:'charger', at:180, w:.2,  pt:['Investidor','Quando chega perto, avança. Desvie da linha vermelha!'],en:['Charger','Dashes when close. Dodge the red line!']},
+  {type:'wisp',    at:240, w:.16, pt:['Espectro','Atira de longe.'],en:['Wisp','Shoots from afar.']},
+  {type:'bomber',  at:300, w:.12, pt:['Inchado','Explode quando chega perto.'],en:['Bloater','Explodes when close.']},
+  {type:'splitter',at:360, w:.12, pt:['Fragmento','Vira três ao morrer.'],en:['Splitter','Becomes three when it dies.']},
+  {type:'leech',   at:420, w:.1,  pt:['Sanguessuga','Perto dela, sua vela derrete.'],en:['Leech','Near it, your candle melts.']},
+  {type:'blade',   at:480, w:.12, pt:['Lâmina','Investidas duplas.'],en:['Blade','Double dashes.']},
+  {type:'weaver',  at:540, w:.1,  pt:['Tecelã','Deixa teias que te prendem.'],en:['Weaver','Leaves webs that slow you.']},
+  {type:'sniper',  at:600, w:.1,  pt:['Atirador','Mira com um laser. Saia da linha!'],en:['Sniper','Aims a laser. Get out of the line!']},
+  {type:'blinker', at:660, w:.1,  pt:['Espelho','Se teletransporta para perto de você.'],en:['Mirror','Teleports next to you.']},
+  {type:'glutton', at:720, w:.1,  pt:['Glutão','Come as brasas do chão e cresce.'],en:['Glutton','Eats embers and grows.']},
+  {type:'carapace',at:780, w:.08, pt:['Carapaça','Casca dura: recebe menos dano.'],en:['Carapace','Hard shell: takes less damage.']},
+  {type:'mortar',  at:840, w:.08, pt:['Morteiro','Bombardeia onde você está.'],en:['Mortar','Shells where you stand.']},
+  {type:'vortex',  at:900, w:.07, pt:['Vórtice','Puxa você para perto.'],en:['Vortex','Pulls you in.']},
+  {type:'healer',  at:960, w:.06, pt:['Curandeira','Cura as outras sombras.'],en:['Healer','Heals other shadows.']},
+  {type:'howler',  at:1020,w:.06, pt:['Uivante','Acelera as sombras ao redor.'],en:['Howler','Speeds up nearby shadows.']},
+  {type:'reaper',  at:1080,w:.05, pt:['Ceifador','Três investidas mortais seguidas.'],en:['Reaper','Three deadly dashes in a row.']}
+];
 const BOSSES = [
   {pt:'O Devorador',en:'The Devourer',atk:['summon'],minion:'crawler',hint:{pt:'Ele chama a horda.',en:'It calls the horde.'}},
   {pt:'O Faminto',en:'The Starving',atk:['dash','summon'],minion:'crawler',hint:{pt:'Fuja da investida!',en:'Dodge the charge!'}},
@@ -632,7 +663,7 @@ function schedMusic(){
 function setMute(m){save.mute=m;persist();if(master)master.gain.value=m?0:.5;soundLabels()}
 
 /* ---------- estado ---------- */
-let state='menu',P,enemies,bullets,ebul,gems,patches,novas,parts,texts,pools,rings,amb;
+let state='menu',P,enemies,bullets,ebul,gems,patches,novas,parts,texts,pools,rings,amb,webs,marks,rosterIdx=0,inWeb=false;
 let time=0,clock=0,spawnAcc=0,nextBoss=BOSS_EVERY,nextSwarm=60,nextEclipse=60,bossN=0,boss=null,shake=0,hurtFlash=0,moving=false,pendingLv=0,lvlOpenAt=0,banner=null,runAsh=0,won=false;
 let bossWaited=false,bossIntro=0,flashA=0,flashC='255,60,20',slowmo=0,eclipseT=0,leechNear=false,deathCause='flame';
 let RC={flame:save.sel.flame,map:save.sel.map,mode:'normal',day:''};
@@ -645,18 +676,17 @@ const diffMul=()=>Math.exp(time/950);                 // dano das sombras cresce
 const hpScale=()=>Math.exp(time/400)*MAPS[RC.map].hpMul; // vida das sombras cresce exponencialmente
 function newRun(){
   rnd=RC.mode==='daily'?mulberry32(seedOf('ultima-chama:'+RC.day)):Math.random;
-  P={x:0,y:0,r:14,flame:0,hp:0,inv:0,xp:0,lvl:1,next:need(1),kills:0,rerolls:save.meta.reroll||0,pass:{},weap:{}};
+  P={x:0,y:0,r:14,flame:0,inv:0,xp:0,lvl:1,next:need(1),kills:0,rerolls:save.meta.reroll||0,pass:{},weap:{}};
   for(const w of FLAMES[RC.flame].start)P.weap[w]={l:1,t:.3};
-  recalc();P.flame=P.maxFlame;P.hp=P.maxHp;
-  enemies=[];bullets=[];ebul=[];gems=[];patches=[];novas=[];parts=[];texts=[];pools=[];rings=[];amb=[];
+  recalc();P.flame=P.maxFlame;
+  enemies=[];bullets=[];ebul=[];gems=[];patches=[];novas=[];parts=[];texts=[];pools=[];rings=[];amb=[];webs=[];marks=[];rosterIdx=1;inWeb=false;
   time=0;spawnAcc=0;nextBoss=BOSS_EVERY;nextSwarm=60;nextEclipse=60;bossN=0;boss=null;shake=0;hurtFlash=0;pendingLv=0;banner=null;won=false;
   bossIntro=0;flashA=0;slowmo=0;bossWaited=false;eclipseT=0;leechNear=false;deathCause='flame';
   cam.x=0;cam.y=0;
 }
 function recalc(){
   const lv=k=>P.pass[k]||0,ml=k=>save.meta[k]||0,fm=FLAMES[RC.flame].mods;
-  P.maxFlame=100+lv('vigor')*20+ml('flame')*10+(fm.maxFlame||0);
-  P.maxHp=100+lv('wax')*20+ml('hp')*10+(fm.hp||0);
+  P.maxFlame=100+lv('vigor')*20+ml('flame')*10+ml('hp')*10+(fm.maxFlame||0);
   P.armor=Math.min(.4,lv('soot')*.08);
   P.speed=165*(1+lv('speed')*.08+ml('speed')*.04)*(fm.speed||1);
   P.lightMul=(1+lv('lantern')*.12+ml('light')*.06)*MAPS[RC.map].light;
@@ -695,17 +725,9 @@ function spawnEnemy(type,x,y){
   enemies.push(e);return e;
 }
 function pickType(){
-  const b=MAPS[RC.map].bias,tm=time,w=[];
-  const add=(k,v)=>{if(v>0)w.push([k,v])};
-  add('shade',1);
-  add('crawler',tm>40?.55+(b.crawler||0)*4:0);
-  add('brute',tm>100?.22+(b.brute||0)*4:0);
-  add('wisp',tm>(b.wispEarly?110:170)?.16+(b.wisp||0)*4:0);
-  add('charger',tm>140?.16+(b.charger||0)*4:0);
-  add('bomber',tm>210?.12+(b.bomber||0)*4:0);
-  add('splitter',tm>270?.12+(b.splitter||0)*4:0);
-  add('leech',tm>330?.1+(b.leech||0)*4:0);
-  let s=0;for(const x of w)s+=x[1];let r=rnd()*s;for(const x of w){r-=x[1];if(r<=0)return x[0]}return 'shade';
+  const b=MAPS[RC.map].bias,w=[];let s=0;
+  for(let i=0;i<rosterIdx&&i<ROSTER.length;i++){const R=ROSTER[i],v=R.w+(b[R.type]||0)*4;w.push([R.type,v]);s+=v}
+  let r=rnd()*s;for(const x of w){r-=x[1];if(r<=0)return x[0]}return 'shade';
 }
 function burst(x,y,n,c,spd,size,life,streak){
   for(let i=0;i<n&&parts.length<700;i++){const a=Math.random()*6.283,s=spd*(.3+Math.random());parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:life*(.6+Math.random()*.6),max:life,c,s:size*(.6+Math.random()*.8),st:!!streak})}
@@ -721,6 +743,7 @@ function setBanner(txt,dur,sub){banner={txt,sub:sub||'',t:dur||2.6,max:dur||2.6}
 function hitEnemy(e,dmg,kx,ky,quiet){
   if(e.dead)return;
   const crit=rnd()<.08;if(crit)dmg*=2;
+  if(e.type==='carapace')dmg*=.45;
   e.hp-=dmg;e.flash=.09;
   if(e.type!=='boss'){e.kx+=kx;e.ky+=ky}
   if(texts.length<90)texts.push({x:e.x+(Math.random()-.5)*10,y:e.y-e.r,v:Math.round(dmg),life:.6,crit});
@@ -758,7 +781,7 @@ function kill(e){
 }
 function hurt(d){
   if(P.inv>0)return;
-  P.hp-=d*(1-P.armor);P.inv=.6;shake=Math.min(16,shake+6);hurtFlash=.3;sfx('hurt');
+  P.flame-=d*(1-P.armor);P.inv=.6;shake=Math.min(16,shake+6);hurtFlash=.3;sfx('hurt');
   burst(P.x,P.y,10,'#ff5a00',160,3,.4);
 }
 function nearestN(n,maxR){
@@ -837,11 +860,11 @@ function update(dt){
   if(joy.on){ix=joy.dx;iy=joy.dy}
   const len=Math.hypot(ix,iy);if(len>1){ix/=len;iy/=len}
   moving=len>.15;
-  P.x+=ix*P.speed*dt;P.y+=iy*P.speed*dt;
-  P.flame-=P.burn*(1+time/1200)*dt;P.inv-=dt;
-  P.hp=Math.min(P.maxHp,P.hp+.3*dt);                   // a cera da vela se refaz devagarhurtFlash=Math.max(0,hurtFlash-dt);
+  inWeb=webs.some(w=>Math.hypot(P.x-w.x,P.y-w.y)<w.r);
+  const pspd=P.speed*(inWeb?.55:1);
+  P.x+=ix*pspd*dt;P.y+=iy*pspd*dt;
+  P.flame-=P.burn*(1+time/1200)*dt;P.inv-=dt;hurtFlash=Math.max(0,hurtFlash-dt);
   if(P.flame<=0){deathCause='flame';endRun(false);return}
-  if(P.hp<=0){deathCause='hp';endRun(false);return}
   if(time>=runLimit()){endRun(true);return}
   if(banner){banner.t-=dt;if(banner.t<=0)banner=null}
   bossIntro=Math.max(0,bossIntro-dt);eclipseT=Math.max(0,eclipseT-dt);
@@ -855,9 +878,13 @@ function update(dt){
   while(spawnAcc>=1){spawnAcc--;spawnEnemy(pickType())}
   if(time>=nextSwarm){
     nextSwarm+=60;const n=Math.min(60,14+Math.floor(time/12));
-    const tp=time>500?'charger':time>240?'crawler':'shade';
-    for(let i=0;i<n;i++){const a=i/n*6.283;spawnEnemy(i%4===0&&time>360?tp:time>240?'crawler':'shade',P.x+Math.cos(a)*(vr+30),P.y+Math.sin(a)*(vr+30))}
-    setBanner(t('swarm'),2);
+    for(let i=0;i<n;i++){const a=i/n*6.283;spawnEnemy(time>240?'crawler':'shade',P.x+Math.cos(a)*(vr+30),P.y+Math.sin(a)*(vr+30))}
+    // a cada minuto entra uma sombra nova, que chega em grupo e passa a aparecer sempre
+    if(rosterIdx<ROSTER.length&&time>=ROSTER[rosterIdx].at){
+      const R=ROSTER[rosterIdx++];
+      for(let i=0;i<4;i++){const a=rnd()*6.283;spawnEnemy(R.type,P.x+Math.cos(a)*(vr+20),P.y+Math.sin(a)*(vr+20))}
+      setBanner(t('newShadow')(R[LANG][0]),3,R[LANG][1]);sfx('telegraph');
+    }else setBanner(t('swarm'),2);
   }
   // a cada 2:30 um Devorador; se o anterior ainda vive, o próximo espera 30 s e vem mesmo assim
   if(time>=nextBoss){
@@ -879,12 +906,44 @@ function update(dt){
         if(d<170){mx=-dx;my=-dy}else if(d<240){mx=-dy;my=dx}
         e.shot-=dt;if(e.shot<=0&&d<vr){e.shot=2.4;const n=time>420?3:1;for(let i=0;i<n;i++){const a=Math.atan2(dy,dx)+(i-(n-1)/2)*.3;ebul.push({x:e.x,y:e.y,vx:Math.cos(a)*175,vy:Math.sin(a)*175,life:4,dmg:7})}}
         break;
-      case 'charger':
+      case 'charger':case 'blade':case 'reaper':{
+        // investida: ao chegar perto (uns 3 dedos), para, mostra a linha vermelha e avança em linha reta — dá para desviar
+        const K={charger:{trig:170,wind:.55,dash:.38,sp:500,chain:1,cd:2.4},blade:{trig:190,wind:.4,dash:.26,sp:600,chain:2,cd:2.2},reaper:{trig:230,wind:.45,dash:.3,sp:640,chain:3,cd:2.6}}[e.type];
         e.cd-=dt;
-        if(e.st==='wind'){spd=0;e.t-=dt;if(e.t<=0){e.st='dash';e.t=.45;sfx('dash')}}
-        else if(e.st==='dash'){mx=e.ddx;my=e.ddy;spd=470;dmgMul=1.4;e.t-=dt;if(e.t<=0){e.st='walk';e.cd=2.6}}
-        else if(d<300&&e.cd<=0){e.st='wind';e.t=.7;e.ddx=dx;e.ddy=dy;sfx('telegraph')}
+        if(e.st==='wind'){spd=0;e.t-=dt;if(e.t<=0){e.st='dash';e.t=K.dash;sfx('dash')}}
+        else if(e.st==='dash'){mx=e.ddx;my=e.ddy;spd=K.sp;dmgMul=1.4;e.t-=dt;if(e.t<=0){e.chain=(e.chain||0)+1;if(e.chain<K.chain){e.st='wind';e.t=K.wind*.7;e.ddx=dx;e.ddy=dy;sfx('telegraph')}else{e.st='walk';e.cd=K.cd;e.chain=0}}}
+        else if(d<K.trig&&e.cd<=0){e.st='wind';e.t=K.wind;e.ddx=dx;e.ddy=dy;e.chain=0;sfx('telegraph')}
         e.face=e.st==='walk'?Math.atan2(dy,dx):Math.atan2(e.ddy,e.ddx);
+        break;}
+      case 'weaver':
+        e.cd-=dt;if(e.cd<=0&&d<420){e.cd=3.6;if(webs.length<30)webs.push({x:e.x,y:e.y,r:62,life:7,max:7})}
+        break;
+      case 'sniper':
+        if(e.st==='aim'){spd=0;e.t-=dt;if(e.t>.28){e.ddx=dx;e.ddy=dy}if(e.t<=0){e.st='walk';e.cd=3.6;ebul.push({x:e.x,y:e.y,vx:e.ddx*460,vy:e.ddy*460,life:2.2,dmg:20,red:1,sn:1});sfx('dash')}}
+        else{if(d<300){mx=-dx;my=-dy}else if(d<380){mx=-dy;my=dx}e.cd-=dt;if(e.cd<=0&&d<520){e.st='aim';e.t=.9;e.ddx=dx;e.ddy=dy;sfx('telegraph')}}
+        break;
+      case 'blinker':
+        e.cd-=dt;
+        if(e.st==='blink'){spd=0;e.t-=dt;if(e.t<=0){burst(e.x,e.y,10,'#80c0ff',140,3,.4);e.x=e.tx;e.y=e.ty;burst(e.x,e.y,14,'#80c0ff',160,3,.4,true);e.st='walk';e.cd=3.4}}
+        else if(e.cd<=0&&d<520&&d>110){const a=rnd()*6.283;e.tx=P.x+Math.cos(a)*85;e.ty=P.y+Math.sin(a)*85;e.st='blink';e.t=.7;sfx('telegraph')}
+        break;
+      case 'glutton':{
+        let gg=null,gd=320;for(const g of gems){if(g.kind||g.dead)continue;const q=Math.hypot(g.x-e.x,g.y-e.y);if(q<gd){gd=q;gg=g}}
+        if(gg){mx=(gg.x-e.x)/(gd||1);my=(gg.y-e.y)/(gd||1);if(gd<e.r+6){gg.dead=true;e.r=Math.min(32,e.r+.8);e.maxhp*=1.08;e.hp=Math.min(e.maxhp,e.hp+e.maxhp*.12);e.dmg+=.6;e.xp+=gg.v}}
+        break;}
+      case 'mortar':
+        if(d<260){mx=-dx;my=-dy}else if(d<340){mx=-dy;my=dx}
+        e.cd-=dt;if(e.cd<=0&&d<560){e.cd=3.2;marks.push({x:P.x,y:P.y,r:72,t:1.05,max:1.05,dmg:22});sfx('telegraph')}
+        break;
+      case 'vortex':
+        if(d<280){const pull=60*(1-d/280);P.x-=dx*pull*dt;P.y-=dy*pull*dt}
+        break;
+      case 'healer':
+        if(d<200){mx=-dx;my=-dy}
+        e.cd-=dt;if(e.cd<=0){e.cd=2.6;query(e.x,e.y,190,o=>{if(o!==e&&o.type!=='boss'&&Math.hypot(o.x-e.x,o.y-e.y)<160)o.hp=Math.min(o.maxhp,o.hp+o.maxhp*.25)});ring(e.x,e.y,e.r,160,.45,'90,255,140',4)}
+        break;
+      case 'howler':
+        e.cd-=dt;if(e.cd<=0&&d<450){e.cd=5;query(e.x,e.y,260,o=>{if(o.type!=='boss'&&Math.hypot(o.x-e.x,o.y-e.y)<240)o.haste=3});ring(e.x,e.y,e.r,240,.5,'255,180,40',6);sfx('eclipse')}
         break;
       case 'bomber':
         if(!e.fuse&&d<80){e.fuse=.85;sfx('telegraph')}
@@ -897,6 +956,7 @@ function update(dt){
         bossAI(e,dt,dx,dy);mx=e.mx;my=e.my;spd=e.sp;if(e.st==='dash')dmgMul=1.5;
         break;
     }
+    if(e.haste>0){e.haste-=dt;spd*=1.5}
     e.x+=(mx*spd+e.kx)*dt;e.y+=(my*spd+e.ky)*dt;
     const damp=Math.max(0,1-dt*7);e.kx*=damp;e.ky*=damp;
     if(e.type!=='boss'&&e.st!=='dash')query(e.x,e.y,e.r+50,o=>{
@@ -929,8 +989,14 @@ function update(dt){
   for(const p of pools){
     if(p.warm>0){p.warm-=dt;continue}
     p.life-=dt;if(p.life<=0)p.dead=true;
-    if(Math.hypot(P.x-p.x,P.y-p.y)<p.r){P.hp-=p.dmg*dt*(1-P.armor);P.flame-=3*dt;hurtFlash=Math.max(hurtFlash,.12)}
+    if(Math.hypot(P.x-p.x,P.y-p.y)<p.r){P.flame-=p.dmg*dt*(1-P.armor);hurtFlash=Math.max(hurtFlash,.12)}
   }
+  for(const m of marks){
+    m.t-=dt;
+    if(m.t<=0){m.dead=true;ring(m.x,m.y,10,m.r,.3,'255,140,60',8);burst(m.x,m.y,14,'#ff8040',200,3,.4,true);sfx('explode');shake=Math.min(16,shake+3);
+      if(Math.hypot(P.x-m.x,P.y-m.y)<m.r+P.r)hurt(m.dmg*diffMul())}
+  }
+  for(const w of webs){w.life-=dt;if(w.life<=0)w.dead=true}
   for(const b of ebul){
     b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;if(b.life<=0)b.dead=true;
     if(!b.dead&&Math.hypot(b.x-P.x,b.y-P.y)<P.r+7){b.dead=true;hurt(b.dmg*diffMul());burst(b.x,b.y,8,b.red?'#ff3050':'#7a40ff',120,3,.4)}
@@ -943,9 +1009,9 @@ function update(dt){
     if(d<P.r+8){
       g.dead=true;
       if(g.kind==='heal'){P.flame=Math.min(P.maxFlame,P.flame+40);sfx('heal');burst(P.x,P.y,16,'#ffd166',150,3,.5)}
-      else if(g.kind==='heart'){P.hp=Math.min(P.maxHp,P.hp+P.maxHp*.5);sfx('heart');burst(P.x,P.y,22,'#ff3a3a',180,3,.6);ring(P.x,P.y,10,70,.35,'255,90,60',5)}
+      else if(g.kind==='heart'){P.flame=Math.min(P.maxFlame,P.flame+P.maxFlame*.5);sfx('heart');burst(P.x,P.y,22,'#ff3a3a',180,3,.6);ring(P.x,P.y,10,70,.35,'255,90,60',5)}
       else if(g.kind==='core'){pendingLv+=2;sfx('lvl')}
-      else{P.xp+=g.v*P.xpMul;P.flame=Math.min(P.maxFlame,P.flame+.7*g.v);pickCombo++;pickT=.5;sfx('pick')}
+      else{P.xp+=g.v*P.xpMul;P.flame=Math.min(P.maxFlame,P.flame+.6*g.v);pickCombo++;pickT=.5;sfx('pick')}
     }
   }
   while(P.xp>=P.next){P.xp-=P.next;P.lvl++;P.next=need(P.lvl);pendingLv++}
@@ -956,7 +1022,7 @@ function update(dt){
   updAmb(dt);
 
   enemies=enemies.filter(e=>!e.dead);bullets=bullets.filter(b=>!b.dead);ebul=ebul.filter(b=>!b.dead);
-  gems=gems.filter(g=>!g.dead);novas=novas.filter(n=>!n.dead);patches=patches.filter(p=>!p.dead);pools=pools.filter(p=>!p.dead);
+  gems=gems.filter(g=>!g.dead);novas=novas.filter(n=>!n.dead);patches=patches.filter(p=>!p.dead);pools=pools.filter(p=>!p.dead);marks=marks.filter(m=>!m.dead);webs=webs.filter(w=>!w.dead);
   parts=parts.filter(p=>p.life>0);texts=texts.filter(x=>x.life>0);rings=rings.filter(r=>r.life>0);
 
   cam.x+=(P.x-cam.x)*Math.min(1,dt*10);cam.y+=(P.y-cam.y)*Math.min(1,dt*10);
@@ -1008,6 +1074,18 @@ function bodyPath(e,ph){
       ctx.moveTo(x+c*r*1.6,y+s*r*1.6);ctx.lineTo(x+Math.cos(a+2.45)*r*1.15,y+Math.sin(a+2.45)*r*1.15);ctx.lineTo(x-c*r*.5,y-s*r*.5);ctx.lineTo(x+Math.cos(a-2.45)*r*1.15,y+Math.sin(a-2.45)*r*1.15);ctx.closePath();break}
     case 'bomber':ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);break;
     case 'splitter':for(let k=0;k<3;k++){const a=k*2.094+ph*.25,ox=x+Math.cos(a)*r*.45,oy=y+Math.sin(a)*r*.45;ctx.moveTo(ox+r*.62,oy);ctx.arc(ox,oy,r*.62,0,6.283)}break;
+    case 'blade':case 'reaper':{const a=e.face||0,c=Math.cos(a),s=Math.sin(a),L=e.type==='reaper'?2:1.7;
+      ctx.moveTo(x+c*r*L,y+s*r*L);ctx.lineTo(x+Math.cos(a+1.9)*r*.8,y+Math.sin(a+1.9)*r*.8);ctx.lineTo(x-c*r*1.1,y-s*r*1.1);ctx.lineTo(x+Math.cos(a-1.9)*r*.8,y+Math.sin(a-1.9)*r*.8);ctx.closePath();
+      if(e.type==='reaper')ghostPath(x,y-r*.15,r*.85,ph);break}
+    case 'weaver':ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);ctx.moveTo(x+r*.55,y-r*.9);ctx.arc(x,y-r*.9,r*.55,0,6.283);break;
+    case 'sniper':ctx.moveTo(x,y-r*1.7);ctx.quadraticCurveTo(x+r,y-r*.4,x+r*.95,y+r);ctx.lineTo(x-r*.95,y+r);ctx.quadraticCurveTo(x-r,y-r*.4,x,y-r*1.7);break;
+    case 'blinker':ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);ctx.moveTo(x+r*.5,y);ctx.arc(x,y,r*.5,0,6.283,true);break;
+    case 'glutton':{const m=.25+Math.abs(Math.sin(ph*.8))*.45,a=Math.atan2(P.y-y,P.x-x);ctx.moveTo(x,y);ctx.arc(x,y,r,a+m,a+6.283-m);ctx.closePath();break}
+    case 'carapace':for(let k=0;k<6;k++){const a=k*1.0472+ph*.08,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;k?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.closePath();break;
+    case 'mortar':ctx.moveTo(x-r,y-r*.7);ctx.lineTo(x+r,y-r*.7);ctx.lineTo(x+r*.8,y+r*.9);ctx.lineTo(x-r*.8,y+r*.9);ctx.closePath();ctx.moveTo(x-r*.3,y-r*.7);ctx.lineTo(x-r*.25,y-r*1.5);ctx.lineTo(x+r*.25,y-r*1.5);ctx.lineTo(x+r*.3,y-r*.7);ctx.closePath();break;
+    case 'vortex':for(let k=0;k<3;k++){const a=k*2.094+ph*.6,ox=x+Math.cos(a)*r*.35,oy=y+Math.sin(a)*r*.35;ctx.moveTo(ox+r*.7,oy);ctx.arc(ox,oy,r*.7,0,6.283)}break;
+    case 'healer':ctx.rect(x-r*.38,y-r,r*.76,r*2);ctx.rect(x-r,y-r*.38,r*2,r*.76);break;
+    case 'howler':ghostPath(x,y,r,ph);for(let k=-1;k<=1;k++){const bx=x+k*r*.45;ctx.moveTo(bx-r*.16,y-r*.85);ctx.lineTo(bx,y-r*1.45);ctx.lineTo(bx+r*.16,y-r*.85)}break;
     case 'leech':ctx.moveTo(x,y-r*1.35);ctx.quadraticCurveTo(x+r*1.25,y+Math.sin(ph)*3,x,y+r*1.05);ctx.quadraticCurveTo(x-r*1.25,y-Math.sin(ph)*3,x,y-r*1.35);break;
     case 'boss':
       ghostPath(x,y,r,ph);
@@ -1024,7 +1102,7 @@ function drawEnemies(){
   }
   // patinhas dos Rastejantes
   ctx.strokeStyle='#4a2030';ctx.lineWidth=1.6;ctx.beginPath();
-  for(const e of enemies){if(e.type!=='crawler')continue;const ph=clock*16+e.ph,r=e.r;for(let i=0;i<3;i++){const w=Math.sin(ph+i*2)*3,yy=e.y+(i-1)*r*.45;ctx.moveTo(e.x-r*.6,yy);ctx.lineTo(e.x-r*1.7,yy+w);ctx.moveTo(e.x+r*.6,yy);ctx.lineTo(e.x+r*1.7,yy-w)}}
+  for(const e of enemies){if(e.type!=='crawler'&&e.type!=='weaver')continue;const ph=clock*16+e.ph,r=e.r,n=e.type==='weaver'?4:3,L=e.type==='weaver'?2.1:1.7;for(let i=0;i<n;i++){const w=Math.sin(ph+i*2)*3,yy=e.y+(i-(n-1)/2)*r*.45;ctx.moveTo(e.x-r*.6,yy);ctx.lineTo(e.x-r*L,yy+w-r*.3);ctx.moveTo(e.x+r*.6,yy);ctx.lineTo(e.x+r*L,yy-w-r*.3)}}
   ctx.stroke();
   ctx.beginPath();let anyF=false;
   for(const e of enemies)if(e.flash>0){anyF=true;bodyPath(e,clock*5+e.ph)}
@@ -1124,9 +1202,17 @@ function render(){
   ctx.lineWidth=1.5;
   for(const e of enemies){
     if(e.type==='leech'){ctx.strokeStyle=`rgba(150,100,255,${.12+Math.sin(clock*4+e.ph)*.05})`;ctx.beginPath();ctx.arc(e.x,e.y,170,0,6.283);ctx.stroke()}
-    if((e.type==='charger'||e.type==='boss')&&e.st==='wind'){const L=e.type==='boss'?420:300,a=.35+Math.sin(clock*30)*.25;ctx.strokeStyle=`rgba(255,40,40,${a})`;ctx.lineWidth=e.type==='boss'?e.r*.7:e.r*1.2;ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+e.ddx*L,e.y+e.ddy*L);ctx.stroke();ctx.lineWidth=1.5}
+    if(e.type==='sniper'&&e.st==='aim'){const lock=e.t<.28,a=lock?.85:.25+(.9-e.t)*.5;ctx.strokeStyle=`rgba(255,30,30,${a})`;ctx.lineWidth=lock?4:1.5;ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+e.ddx*720,e.y+e.ddy*720);ctx.stroke();ctx.lineWidth=1.5}
+    if(e.type==='blinker'&&e.st==='blink'){ctx.strokeStyle=`rgba(128,192,255,${.5+Math.sin(clock*30)*.3})`;ctx.setLineDash([5,5]);ctx.beginPath();ctx.arc(e.tx,e.ty,e.r+8,0,6.283);ctx.stroke();ctx.setLineDash([])}
+    if(e.type==='vortex'){ctx.strokeStyle='rgba(200,110,255,.22)';for(let k=0;k<3;k++){const a=clock*2+k*2.094;ctx.beginPath();ctx.arc(e.x,e.y,90+k*60,a,a+1.6);ctx.stroke()}}
+    if(e.haste>0){ctx.strokeStyle='rgba(255,180,40,.5)';ctx.beginPath();ctx.arc(e.x,e.y,e.r+5,0,6.283);ctx.stroke()}
+    if((e.type==='charger'||e.type==='blade'||e.type==='reaper'||e.type==='boss')&&e.st==='wind'){const L=e.type==='boss'?420:e.type==='reaper'?340:300,a=.35+Math.sin(clock*30)*.25;ctx.strokeStyle=`rgba(255,40,40,${a})`;ctx.lineWidth=e.type==='boss'?e.r*.7:e.r*1.2;ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.x+e.ddx*L,e.y+e.ddy*L);ctx.stroke();ctx.lineWidth=1.5}
     if(e.type==='bomber'&&e.fuse){ctx.strokeStyle=`rgba(230,70,255,${.5+Math.sin(clock*40)*.3})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(e.x,e.y,95,0,6.283);ctx.stroke();ctx.lineWidth=1.5}
   }
+  // teias da Tecelã e mira do Morteiro
+  for(const w of webs){const a=Math.min(1,w.life/w.max*2)*.5;ctx.strokeStyle=`rgba(225,225,245,${a})`;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,6.283);ctx.arc(w.x,w.y,w.r*.55,0,6.283);for(let k=0;k<8;k++){const an=k*.785;ctx.moveTo(w.x,w.y);ctx.lineTo(w.x+Math.cos(an)*w.r,w.y+Math.sin(an)*w.r)}ctx.stroke()}
+  for(const m of marks){const k=1-m.t/m.max;ctx.strokeStyle=`rgba(255,120,40,${.5+Math.sin(clock*30)*.3})`;ctx.lineWidth=2.5;ctx.setLineDash([7,6]);ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,6.283);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='rgba(255,90,20,.18)';ctx.beginPath();ctx.arc(m.x,m.y,m.r*k,0,6.283);ctx.fill()}
+  ctx.lineWidth=1.5;
   for(const p of pools){ctx.strokeStyle=p.warm>0?`rgba(200,80,255,${.4+Math.sin(clock*25)*.3})`:'rgba(150,60,220,.55)';ctx.setLineDash(p.warm>0?[8,8]:[]);ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.stroke()}
   ctx.setLineDash([]);
   // olhos (piscam de vez em quando)
@@ -1155,6 +1241,7 @@ function render(){
   ctx.fillStyle='rgba(150,80,255,.45)';ctx.beginPath();for(const b of ebul)if(!b.red){ctx.moveTo(b.x+11,b.y);ctx.arc(b.x,b.y,11,0,6.283)}ctx.fill();
   ctx.fillStyle='rgba(255,40,80,.45)';ctx.beginPath();for(const b of ebul)if(b.red){ctx.moveTo(b.x+10,b.y);ctx.arc(b.x,b.y,10,0,6.283)}ctx.fill();
   ctx.fillStyle='#e8d6ff';ctx.beginPath();for(const b of ebul){ctx.moveTo(b.x+4,b.y);ctx.arc(b.x,b.y,4,0,6.283)}ctx.fill();
+  ctx.strokeStyle='rgba(255,60,60,.9)';ctx.lineWidth=4;ctx.lineCap='round';ctx.beginPath();for(const b of ebul)if(b.sn){ctx.moveTo(b.x,b.y);ctx.lineTo(b.x-b.vx*.06,b.y-b.vy*.06)}ctx.stroke();
   ctx.globalCompositeOperation='source-over';
   for(const g of gems){
     if(g.kind==='heal'){const p=1+Math.sin(clock*6)*.12;ctx.fillStyle='#ffb347';flameShape(g.x,g.y+5,7*p,20*p,0);ctx.fillStyle='#fff0bf';flameShape(g.x,g.y+5,3.5*p,11*p,0)}
@@ -1175,10 +1262,11 @@ function bar(x,y,w,h,f,c0,c1,label,blink){
   ctx.fillStyle='#fff4e6';ctx.font='800 10.5px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText(label,x+w/2,y+h/2+.5);
 }
 function drawHUD(){
-  const f=Math.max(0,P.flame)/P.maxFlame,hp=Math.max(0,P.hp)/P.maxHp;
+  const f=Math.max(0,P.flame)/P.maxFlame;
   // efeitos de tela: eclipse, perigo, clarão
   if(eclipseT>0||(boss&&BOSSES[boss.v].eclipse)){const g=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.2,W/2,H/2,Math.max(W,H)*.7);g.addColorStop(0,'rgba(40,0,80,0)');g.addColorStop(1,'rgba(40,0,80,.45)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
-  const danger=Math.max(f<.3?(.3-f)/.3:0,hp<.3?(.3-hp)/.3:0);
+  const danger=f<.3?(.3-f)/.3:0;
+  if(inWeb){ctx.fillStyle='rgba(200,200,230,.08)';ctx.fillRect(0,0,W,H)}
   if(danger>0||hurtFlash>0){
     const a=Math.max(danger*.45*(.6+.4*Math.sin(clock*8)),hurtFlash*1.2);
     const g=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);
@@ -1202,8 +1290,7 @@ function drawHUD(){
   if(boss&&!boss.dead){const bw=Math.min(420,W-40),bx=(W-bw)/2,by=84;ctx.fillStyle='rgba(30,0,10,.85)';ctx.fillRect(bx,by,bw,10);ctx.fillStyle='#ff1f4f';ctx.fillRect(bx,by,bw*Math.max(0,boss.hp/boss.maxhp),10);ctx.fillStyle='#ffd0d8';ctx.font='700 12px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText(`${ROMAN[boss.n-1]||boss.n} · ${BOSSES[boss.v][LANG]}`,W/2,by+22)}
   // vida da vela e chama
   const bw=Math.min(360,W-40),bx=(W-bw)/2;
-  bar(bx,H-62,bw,12,hp,'#a01020','#ff6a4a',`♥ ${t('life')} ${Math.ceil(Math.max(0,P.hp))}/${P.maxHp}`,hp<.3&&Math.floor(clock*6)%2);
-  bar(bx,H-42,bw,14,f,'#ff3d00','#ffd166',`${t('flame')} ${Math.ceil(Math.max(0,P.flame))}/${P.maxFlame}`,f<.3&&Math.floor(clock*6)%2);
+  bar(bx,H-46,bw,16,f,'#ff3d00','#ffd166',`🕯 ${t('flame')} ${Math.ceil(Math.max(0,P.flame))}/${P.maxFlame}`,f<.3&&Math.floor(clock*6)%2);
   if(banner){const a=Math.min(1,banner.t*2,(banner.max-banner.t)*4);ctx.globalAlpha=a;ctx.font=`900 ${Math.max(20,Math.min(34,W/16))}px system-ui,sans-serif`;ctx.fillStyle='#ffcf70';ctx.shadowColor='#ff3d00';ctx.shadowBlur=18;ctx.textAlign='center';ctx.fillText(banner.txt,W/2,H*.27);ctx.shadowBlur=0;
     if(banner.sub){ctx.font='700 15px system-ui,sans-serif';ctx.fillStyle='#f4e9d8';ctx.fillText(banner.sub,W/2,H*.27+28)}ctx.globalAlpha=1}
   // analógico: a base fica parada onde o dedo tocou; só o miolo se move
@@ -1347,10 +1434,10 @@ function openLevelUp(){
 function pickCard(i){
   if(state!=='levelup'||performance.now()-lvlOpenAt<350||!curOpts[i])return;
   const o=curOpts[i];
-  if(o.id==='heal'){P.flame=Math.min(P.maxFlame,P.flame+40);P.hp=Math.min(P.maxHp,P.hp+P.maxHp*.25)}
+  if(o.id==='heal'){P.flame=Math.min(P.maxFlame,P.flame+40)}
   else if(UP[o.id].w){if(P.weap[o.id])P.weap[o.id].l++;else P.weap[o.id]={l:1,t:0}}
-  else{P.pass[o.id]=(P.pass[o.id]||0)+1;if(o.id==='vigor')P.flame+=20;if(o.id==='wax')P.hp+=20}
-  recalc();P.flame=Math.min(P.flame,P.maxFlame);P.hp=Math.min(P.hp,P.maxHp);
+  else{P.pass[o.id]=(P.pass[o.id]||0)+1;if(o.id==='vigor')P.flame+=20}
+  recalc();P.flame=Math.min(P.flame,P.maxFlame);
   pendingLv--;burst(P.x,P.y,24,'#ffcf70',220,3,.6,true);
   if(pendingLv>0)openLevelUp();else{state='play';show(null)}
 }
@@ -1369,7 +1456,7 @@ function endRun(win){
   if(RC.mode==='daily'){if(!save.daily||save.daily.day!==RC.day)save.daily={day:RC.day,best:0,tries:0};save.daily.tries++;if(r.score>save.daily.best)save.daily.best=r.score}
   persist();sfx(win?'win':'over');
   const demoWin=win&&CONFIG.demo,demoMap=demoWin&&RC.mode==='normal'&&RC.map!=='floresta';
-  $('overTitle').textContent=win?(CONFIG.demo&&RC.mode==='normal'?(demoMap?t('demoMapEnd'):t('winDemo')):t('winFull')):(deathCause==='hp'?t('overHp'):t('over'));
+  $('overTitle').textContent=win?(CONFIG.demo&&RC.mode==='normal'?(demoMap?t('demoMapEnd'):t('winDemo')):t('winFull')):t('over');
   $('overText').textContent=win?(CONFIG.demo&&RC.mode==='normal'?(demoMap?t('demoMapEndText'):t('winText')):t('winFullText')):t('loseText');
   $('modeLine').textContent=RC.mode==='daily'?`${t('daily')} · ${fmtDay(RC.day)}`:`${FLAMES[RC.flame][LANG][0]} · ${MAPS[RC.map][LANG][0]} · ${MODES[RC.mode][LANG][0]}`;
   $('scoreVal').textContent=nf(r.score);$('recordTag').textContent='';
