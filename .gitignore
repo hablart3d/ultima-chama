@@ -1,0 +1,5 @@
+# Só o jogo vai para o site público. Estratégia, banco e pacotes ficam no seu PC.
+GUIA-DE-LANCAMENTO.md
+supabase/
+publicar/
+*.zip
