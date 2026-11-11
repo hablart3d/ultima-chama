@@ -239,7 +239,7 @@ const CONFIG = {
   linkDiscord: '',         // Discord/comunidade. Vazio = botão some
   supabaseUrl: 'https://pdooebplseetvrepllrl.supabase.co',
   supabaseKey: 'sb_publishable_uDYzMp-4okDVXq7dIvE3rw_VzmPpKhX', // chave PÚBLICA. NUNCA a secret / service_role
-  version: '0.6.1'
+  version: '0.6.2'
 };
 const FULL_SECONDS = 1200;                          // versão completa: 20 minutos
 const DAILY_SECONDS = 600;                          // desafio diário: 10 minutos
@@ -382,24 +382,24 @@ const UP = {
   orbit:{w:1,max:5,icon:'●',pt:['Brasas Orbitais','Brasas giram ao seu redor'],en:['Orbiting Embers','Embers circle around you']},
   nova: {w:1,max:5,icon:'✺',pt:['Erupção','Solta uma onda de fogo de tempos em tempos'],en:['Eruption','Releases a wave of fire every few seconds']},
   trail:{w:1,max:5,icon:'≈',pt:['Rastro','Deixa fogo no chão por onde passa'],en:['Trail','Leaves fire on the ground where you walk']},
-  vigor:{max:5,icon:'♥',pt:['Cera Grossa','+20 de vela máxima'],en:['Thick Wax','+20 max candle']},
-  soot: {max:5,icon:'⛨',pt:['Fuligem','A vela recebe 8% menos dano'],en:['Soot','The candle takes 8% less damage']},
+  vigor:{max:5,icon:'♥',pt:['Cera Grossa','+14 de vela máxima'],en:['Thick Wax','+14 max candle']},
+  soot: {max:5,icon:'⛨',pt:['Fuligem','A vela recebe 6% menos dano'],en:['Soot','The candle takes 6% less damage']},
   speed:{max:5,icon:'»',pt:['Passos Leves','+8% de velocidade'],en:['Light Steps','+8% speed']},
   lantern:{max:5,icon:'☼',pt:['Lanterna','+12% de alcance da luz (e da mira)'],en:['Lantern','+12% light radius (and aim range)']},
   magnet:{max:5,icon:'⊕',pt:['Atração','+35% de alcance para puxar brasas'],en:['Pull','+35% ember pickup range']},
-  fury: {max:5,icon:'▲',pt:['Fúria','+12% de dano'],en:['Fury','+12% damage']},
-  haste:{max:5,icon:'⟳',pt:['Pressa','Ataques 8% mais rápidos'],en:['Haste','Attacks 8% faster']},
-  slow: {max:5,icon:'⧗',pt:['Pavio Longo','A chama queima 12% mais devagar'],en:['Long Wick','Flame burns 12% slower']},
-  area: {max:5,icon:'◇',pt:['Expansão','+10% de área dos ataques'],en:['Expansion','+10% attack area']}
+  fury: {max:5,icon:'▲',pt:['Fúria','+8% de dano'],en:['Fury','+8% damage']},
+  haste:{max:5,icon:'⟳',pt:['Pressa','Ataques 6% mais rápidos'],en:['Haste','Attacks 6% faster']},
+  slow: {max:5,icon:'⧗',pt:['Pavio Longo','A chama queima 8% mais devagar'],en:['Long Wick','Flame burns 8% slower']},
+  area: {max:5,icon:'◇',pt:['Expansão','+7% de área dos ataques'],en:['Expansion','+7% attack area']}
 };
 function wstat(id,l){
   const i=l-1;
   switch(id){
-    case 'spark':return {cd:[.75,.7,.65,.58,.52,.46][i],n:[1,1,2,2,3,4][i],dmg:[12,14,16,18,21,25][i],pierce:[0,1,1,1,2,2][i],spd:470};
-    case 'aura': return {r:[78,88,98,108,120][i],dmg:[7,9,11,13,16][i],tick:.5};
-    case 'orbit':return {n:[2,2,3,4,5][i],dmg:[10,14,16,18,22][i],r:[80,86,92,98,105][i],spd:[2.6,3,3.2,3.5,3.9][i]};
-    case 'nova': return {cd:[4.2,3.8,3.4,3,2.6][i],dmg:[28,36,46,58,72][i],r:[170,190,212,236,262][i]};
-    case 'trail':return {dur:[2.2,2.6,3,3.3,3.6][i],dmg:[9,11,13,15,18][i],r:[26,28,31,33,36][i]};
+    case 'spark':return {cd:[.75,.7,.65,.58,.52,.46][i],n:[1,1,2,2,3,4][i],dmg:[12,13,15,16,18,21][i],pierce:[0,1,1,1,2,2][i],spd:470};
+    case 'aura': return {r:[78,88,98,108,120][i],dmg:[7,8,10,11,13][i],tick:.5};
+    case 'orbit':return {n:[2,2,3,4,5][i],dmg:[10,12,14,15,18][i],r:[80,86,92,98,105][i],spd:[2.6,3,3.2,3.5,3.9][i]};
+    case 'nova': return {cd:[4.2,3.8,3.4,3,2.6][i],dmg:[28,33,40,48,58][i],r:[170,190,212,236,262][i]};
+    case 'trail':return {dur:[2.2,2.6,3,3.3,3.6][i],dmg:[9,10,12,13,15][i],r:[26,28,31,33,36][i]};
   }
 }
 const META = {
@@ -695,7 +695,7 @@ const MAX_LVL=22,MAX_WEAP=3,MAX_PASS=3,PASS_MAX_L=3,ENEMY_CAP=110;
 const need=l=>Math.floor(3+(l-1)*2.5+Math.pow(l,1.45)+Math.pow(Math.max(0,l-10),2)*1.3);
 // menos sombras na tela, mas cada uma mais rápida e mais perigosa com o tempo (o começo é tranquilo)
 const ramp=()=>Math.max(0,time-120);
-const diffMul=()=>Math.exp(ramp()/680);                 // dano
+const diffMul=()=>1.35*Math.exp(ramp()/600);            // dano (mais forte desde o início)
 const hpScale=()=>Math.exp(time/430)*MAPS[RC.map].hpMul; // vida
 const spdScale=()=>Math.min(2.1,1.6+ramp()/1200);       // velocidade de andar (rápidas desde o início)
 const projMul=()=>Math.min(2,1.35+ramp()/1000);          // velocidade dos tiros
@@ -711,15 +711,15 @@ function newRun(){
 }
 function recalc(){
   const lv=k=>Math.min(PASS_MAX_L,P.pass[k]||0),ml=k=>save.meta[k]||0,fm=FLAMES[RC.flame].mods;
-  P.maxFlame=100+lv('vigor')*20+ml('flame')*10+ml('hp')*10+(fm.maxFlame||0);
-  P.armor=Math.min(.4,lv('soot')*.08);
+  P.maxFlame=100+lv('vigor')*14+ml('flame')*10+ml('hp')*10+(fm.maxFlame||0);
+  P.armor=Math.min(.3,lv('soot')*.06);
   P.speed=165*(1+lv('speed')*.08+ml('speed')*.04)*(fm.speed||1);
   P.lightMul=(1+lv('lantern')*.12+ml('light')*.06)*MAPS[RC.map].light;
   P.magnet=95*(1+lv('magnet')*.35);
-  P.dmgMul=(1+lv('fury')*.12)*(fm.dmg||1);
-  P.cdMul=Math.pow(.92,lv('haste'));
-  P.burn=1.1*Math.pow(.88,lv('slow'))*(fm.burn||1);
-  P.area=1+lv('area')*.1;
+  P.dmgMul=.88*(1+lv('fury')*.08)*(fm.dmg||1);
+  P.cdMul=Math.pow(.94,lv('haste'));
+  P.burn=1.1*Math.pow(.92,lv('slow'))*(fm.burn||1);
+  P.area=1+lv('area')*.07;
   P.xpMul=1+ml('xp')*.1;
 }
 function dimFactor(){let d=1;if(eclipseT>0)d*=.6;if(boss&&!boss.dead&&BOSSES[boss.v].eclipse)d*=.68;if(leechNear)d*=.85;return d}
@@ -771,8 +771,10 @@ function hitEnemy(e,dmg,kx,ky,quiet){
   if(e.type==='carapace')dmg*=.45;
   e.hp-=dmg;e.flash=.09;
   if(e.type!=='boss'){e.kx+=kx;e.ky+=ky}
-  // menos poluição: só os críticos e os golpes no chefe mostram número
-  if((crit||e.type==='boss')&&texts.length<30)texts.push({x:e.x+(Math.random()-.5)*10,y:e.y-e.r,v:Math.round(dmg),life:.6,crit});
+  // dano nas sombras em vermelho; golpes seguidos na mesma sombra somam no mesmo número (sem poluir)
+  {const o=texts.find(x=>x.e===e&&x.life>.25);
+   if(o){o.v+=Math.round(dmg);o.crit=o.crit||crit;o.life=Math.max(o.life,.5)}
+   else if(texts.length<40)texts.push({x:e.x+(Math.random()-.5)*10,y:e.y-e.r,v:Math.round(dmg),life:.6,crit,e});}
   if(crit&&parts.length<650)burst(e.x,e.y,3,'#fff1b0',160,2,.25,true);
   if(!quiet)sfx('hit');
   if(e.hp<=0)kill(e);
@@ -809,7 +811,8 @@ function kill(e){
 }
 function hurt(d){
   if(P.inv>0)return;
-  P.flame-=d*(1-P.armor);P.inv=.6;shake=Math.min(16,shake+6);hurtFlash=.3;sfx('hurt');
+  P.flame-=d*(1-P.armor);P.inv=.6;
+  texts.push({x:P.x,y:P.y-P.r-8,v:'-'+Math.round(d*(1-P.armor)),life:.8,me:1}); // dano na vela em roxoshake=Math.min(16,shake+6);hurtFlash=.3;sfx('hurt');
   burst(P.x,P.y,10,'#ff5a00',160,3,.4);
 }
 function nearestN(n,maxR){
@@ -1378,7 +1381,7 @@ function render(){
     else if(g.kind==='core'){const p=1+Math.sin(clock*5)*.15;ctx.fillStyle='#ff4d00';ctx.beginPath();ctx.arc(g.x,g.y,14*p,0,6.283);ctx.fill();ctx.fillStyle='#fff0bf';ctx.beginPath();ctx.arc(g.x,g.y,6*p,0,6.283);ctx.fill()}
   }
   ctx.textAlign='center';
-  for(const x of texts){ctx.globalAlpha=Math.min(1,x.life*2.5);ctx.font=x.crit?'800 17px system-ui,sans-serif':'700 13px system-ui,sans-serif';ctx.fillStyle=x.crit?'#ffe066':'#fff4e6';ctx.fillText(x.v,x.x,x.y)}
+  for(const x of texts){ctx.globalAlpha=Math.min(1,x.life*2.5);ctx.font=x.me?'900 19px system-ui,sans-serif':x.crit?'800 17px system-ui,sans-serif':'700 13px system-ui,sans-serif';ctx.fillStyle=x.me?'#c04dff':x.crit?'#ff2a2a':'#ff5a5a';ctx.strokeStyle='rgba(0,0,0,.75)';ctx.lineWidth=3;ctx.strokeText(x.v,x.x,x.y);ctx.fillText(x.v,x.x,x.y)}
   ctx.globalAlpha=1;
 
   ctx.setTransform(DPR,0,0,DPR,0,0);
