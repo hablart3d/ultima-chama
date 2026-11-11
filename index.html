@@ -239,7 +239,7 @@ const CONFIG = {
   linkDiscord: '',         // Discord/comunidade. Vazio = botão some
   supabaseUrl: 'https://pdooebplseetvrepllrl.supabase.co',
   supabaseKey: 'sb_publishable_uDYzMp-4okDVXq7dIvE3rw_VzmPpKhX', // chave PÚBLICA. NUNCA a secret / service_role
-  version: '0.6.2'
+  version: '0.6.3'
 };
 const FULL_SECONDS = 1200;                          // versão completa: 20 minutos
 const DAILY_SECONDS = 600;                          // desafio diário: 10 minutos
@@ -395,7 +395,7 @@ const UP = {
 function wstat(id,l){
   const i=l-1;
   switch(id){
-    case 'spark':return {cd:[.75,.7,.65,.58,.52,.46][i],n:[1,1,2,2,3,4][i],dmg:[12,13,15,16,18,21][i],pierce:[0,1,1,1,2,2][i],spd:470};
+    case 'spark':return {cd:[.75,.7,.65,.58,.52,.46][i],n:[1,1,2,2,3,4][i],dmg:[12,13,15,16,18,21][i],pierce:0,spd:470};
     case 'aura': return {r:[78,88,98,108,120][i],dmg:[7,8,10,11,13][i],tick:.5};
     case 'orbit':return {n:[2,2,3,4,5][i],dmg:[10,12,14,15,18][i],r:[80,86,92,98,105][i],spd:[2.6,3,3.2,3.5,3.9][i]};
     case 'nova': return {cd:[4.2,3.8,3.4,3,2.6][i],dmg:[28,33,40,48,58][i],r:[170,190,212,236,262][i]};
