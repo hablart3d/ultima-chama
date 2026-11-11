@@ -232,18 +232,18 @@ button{font:inherit;cursor:pointer}
    CONFIGURAÇÃO — edite aqui antes de publicar
    ========================================================= */
 const CONFIG = {
-  demo: true,              // true = demo (Floresta 15 min, Catacumbas 10 min, o resto travado)
+  demo: true,              // true = demo (Floresta 10 min, Catacumbas 10 min, o resto travado)
   priceText: 'US$ 2,99',   // preço mostrado na tela da versão completa
   linkFull: 'https://games-hablart3d.itch.io/ultima-chama-completo',
   linkWeb: 'https://hablart3d.github.io/ultima-chama/',
   linkDiscord: '',         // Discord/comunidade. Vazio = botão some
   supabaseUrl: 'https://pdooebplseetvrepllrl.supabase.co',
   supabaseKey: 'sb_publishable_uDYzMp-4okDVXq7dIvE3rw_VzmPpKhX', // chave PÚBLICA. NUNCA a secret / service_role
-  version: '0.6.0'
+  version: '0.6.1'
 };
 const FULL_SECONDS = 1200;                          // versão completa: 20 minutos
 const DAILY_SECONDS = 600;                          // desafio diário: 10 minutos
-const DEMO_LIMITS = {floresta: 900, catacumbas: 600}; // demo: 15 e 10 minutos
+const DEMO_LIMITS = {floresta: 600, catacumbas: 600}; // demo: 10 e 10 minutos
 const BOSS_EVERY = 150;                             // um Devorador a cada 2:30
 
 /* ---------- textos (PT / EN automático) ---------- */
@@ -697,8 +697,8 @@ const need=l=>Math.floor(3+(l-1)*2.5+Math.pow(l,1.45)+Math.pow(Math.max(0,l-10),
 const ramp=()=>Math.max(0,time-120);
 const diffMul=()=>Math.exp(ramp()/680);                 // dano
 const hpScale=()=>Math.exp(time/430)*MAPS[RC.map].hpMul; // vida
-const spdScale=()=>Math.min(1.9,1+ramp()/950);          // velocidade de andar
-const projMul=()=>Math.min(1.8,1+ramp()/1000);          // velocidade dos tiros
+const spdScale=()=>Math.min(2.1,1.6+ramp()/1200);       // velocidade de andar (rápidas desde o início)
+const projMul=()=>Math.min(2,1.35+ramp()/1000);          // velocidade dos tiros
 function newRun(){
   rnd=RC.mode==='daily'?mulberry32(seedOf('ultima-chama:'+RC.day)):Math.random;
   P={x:0,y:0,r:14,flame:0,inv:0,xp:0,lvl:1,next:need(1),kills:0,rerolls:save.meta.reroll||0,pass:{},weap:{}};
